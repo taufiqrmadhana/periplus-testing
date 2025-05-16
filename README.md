@@ -1,28 +1,37 @@
-# Periplus Login Automated Test (Python + Playwright)
+# Periplus Automated Testing (Python + Playwright)
 
-Automated login testing script using **Python**, **Playwright**, and **Dotenv** for the [Periplus](https://www.periplus.com/) website.
+Automated testing script using **Python**, **Playwright**, and **Dotenv** for the [Periplus](https://www.periplus.com/) website. Tests include login functionality and add-to-cart functionality.
 
 ---
 
 ## How It Works
 
-The script does the following steps:
-1. Launches a Chromium browser (non-headless for visual debugging).
-2. Navigates to the Periplus login page.
-3. Loads login credentials from the `.env` file.
-4. Fills in the email and password.
-5. Clicks the login button.
-6. Verifies that login is successful by checking the URL or DOM.
-7. Closes the browser.
+The script performs the following tests:
+
+### Login Test
+1. Launches a Chromium browser (non-headless for visual debugging)
+2. Navigates to the Periplus login page
+3. Loads login credentials from the `.env` file
+4. Fills in the email and password
+5. Clicks the login button
+6. Verifies that login is successful by checking the URL
+
+### Cart Test
+1. Uses the session from the successful login
+2. Navigates to a specified book product page (from `.env` or uses a default)
+3. Checks the initial cart count
+4. Clicks the "Add to Cart" button
+5. Verifies the cart count has increased by 1
+6. Reports success or failure
 
 ---
 
 ## Project Structure
 
 ```
-playwright-test/
-├── .env                # Secret credentials (not tracked in Git)
-├── login_test.py       # Main test script using Playwright
+periplus-testing/
+├── .env                # Secret credentials and configuration (not tracked in Git)
+├── main.py             # Main test script using Playwright
 ├── requirements.txt    # Python dependencies
 ├── .gitignore          # Ignores .env and other unnecessary files
 └── README.md           # This documentation file
@@ -30,13 +39,13 @@ playwright-test/
 
 ---
 
-## How to Run the Test
+## How to Run the Tests
 
 ### 1. Clone the repository & navigate to project
 
 ```bash
-git clone https://github.com/yourusername/periplus-login-test.git
-cd playwright-test
+git clone https://github.com/yourusername/periplus-testing.git
+cd periplus-testing
 ```
 
 ### 2. Create and activate virtual environment (recommended)
@@ -59,22 +68,34 @@ Create a `.env` file in the root directory and add:
 ```env
 EMAIL=your_email@example.com
 PASSWORD=your_password_here
+BOOKURL=https://www.periplus.com/p/your-preferred-book-url  # Optional - uses default if not provided
 ```
 
-Make sure the email and password are valid and registered in https://www.periplus.com/
+Make sure the email and password are valid and registered on https://www.periplus.com/
 
 ### 5. Run the script
 
 ```bash
-python login_test.py
+python main.py
 ```
 
-You'll see the browser open, perform the login steps, and print results in the console.
+You'll see the browser open, perform the login steps, navigate to the product page, add the item to cart, and print results in the console.
 
-## Coming Soon
+---
 
- **Next Test Case**: Add-to-Cart Functionality
-The next implementation will extend this script to:
-* Search for a product
-* Add it to the cart
-* Verify the cart contains the selected item
+## Sample Output
+
+A successful test run will output something like:
+
+```
+Navigating to login page...
+Filling in login credentials...
+URL after login: https://www.periplus.com/_index_/index
+Successfully Logged In
+Navigating to product page...
+Initial cart count: 0
+Cart count after adding: 1
+Product successfully added to cart!
+```
+
+---
