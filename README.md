@@ -44,7 +44,7 @@ periplus-testing/
 ### 1. Clone the repository & navigate to project
 
 ```bash
-git clone https://github.com/yourusername/periplus-testing.git
+git clone https://github.com/taufiqrmadhana/periplus-testing.git
 cd periplus-testing
 ```
 
